@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src data:; style-src 'self'; script-src 'self'" />
+    <title>Share your screen</title>
+    <link rel="stylesheet" href="picker.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Choose what to share</h1>
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" data-kind="screen" aria-selected="true">Entire screen</button>
+        <button type="button" role="tab" data-kind="window" aria-selected="false">Window</button>
+      </div>
+    </header>
+    <main id="sources" class="grid"></main>
+    <footer>
+      <button id="cancel" type="button" class="secondary">Cancel</button>
+      <button id="share" type="button" class="primary" disabled>Share</button>
+    </footer>
+    <script src="picker.js"></script>
+  </body>
+</html>
