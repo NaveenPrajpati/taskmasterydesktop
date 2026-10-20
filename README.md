@@ -1,6 +1,6 @@
-# TaskMastery for Windows
+# Tazor for Windows
 
-An Electron shell around the hosted TaskMastery site. The server, database
+An Electron shell around the hosted Tazor site. The server, database
 and secrets stay on the server. This app adds a window, a tray icon, Windows
 notifications, a screen-share picker, `taskmastery://` links, Google
 sign-in through the browser, and auto-updates.
@@ -26,7 +26,7 @@ Electron starts as plain Node, so `app` is undefined). Running
 Start the web app (`pnpm dev` in `taskMasteryWeb`), then:
 
 ```sh
-npm run dev      # opens http://localhost:3000, profile "TaskMastery (dev)"
+npm run dev      # opens http://localhost:3000, profile "Tazor (dev)"
 npm start        # opens the URL in app.config.json
 ```
 
@@ -37,7 +37,7 @@ runs only).
 
 1. Set the production address in `app.config.json` (`appUrl`, the web
    app's `NEXT_PUBLIC_APP_URL`).
-2. `npm run dist` → `release/TaskMastery-Setup-<version>.exe`
+2. `npm run dist` → `release/Tazor-Setup-<version>.exe`
 
 ## Release an update
 
@@ -67,7 +67,7 @@ don't need this: the Store signs them.
    of `electron-builder.yml`: `Package/Identity/Name` → `identityName`,
    `Package/Identity/Publisher` → `publisher`,
    `Package/Properties/PublisherDisplayName` → `publisherDisplayName`.
-3. `npm run dist:store` → `release/TaskMastery-Store-<version>.appx`
+3. `npm run dist:store` → `release/Tazor-Store-<version>.appx`
    (unsigned; the Store signs it). Upload it under **Packages** in a new
    submission.
 4. Updates: bump `version`, build again and submit. The Store installs
@@ -83,7 +83,7 @@ Runs on a Mac with the same steps (`npm install`, `npm run dev`). macOS
 builds can only be made on a Mac:
 
 ```sh
-npm run dist:mac   # release/TaskMastery-<version>.dmg (+ .zip for updates)
+npm run dist:mac   # release/Tazor-<version>.dmg (+ .zip for updates)
 ```
 
 To give it to other people, sign and notarize it, or macOS blocks it as

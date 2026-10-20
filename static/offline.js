@@ -5,7 +5,7 @@ const retryUrl = params.get('retry');
 
 // ?reason=slow: online, but the server didn't answer in time
 if (params.get('reason') === 'slow') {
-  document.getElementById('title').textContent = 'TaskMastery is taking too long';
+  document.getElementById('title').textContent = 'Tazor is taking too long';
   document.getElementById('message').textContent =
     "The server isn't responding. We'll keep trying.";
 }

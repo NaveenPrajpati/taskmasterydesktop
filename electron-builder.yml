@@ -1,11 +1,11 @@
 # Builds (output in release/):
-#   npm run dist        Windows installer → TaskMastery-Setup-<version>.exe
+#   npm run dist        Windows installer → Tazor-Setup-<version>.exe
 #   npm run release     the same, uploaded to GitHub Releases (auto-update)
-#   npm run dist:store  Microsoft Store package → TaskMastery-Store-<version>.appx
+#   npm run dist:store  Microsoft Store package → Tazor-Store-<version>.appx
 #   npm run dist:mac    macOS → .dmg + .zip (only on a Mac)
 appId: com.taskmastery.desktop
-productName: TaskMastery
-copyright: Copyright © 2026 TaskMastery
+productName: Tazor
+copyright: Copyright © 2026 Tazor
 
 directories:
   output: release
@@ -21,7 +21,7 @@ files:
 
 # taskmastery:// links (browser sign-in hands the session back with one)
 protocols:
-  - name: TaskMastery
+  - name: Tazor
     schemes:
       - taskmastery
 
@@ -29,7 +29,7 @@ win:
   target:
     - nsis
   icon: assets/icon.png
-  artifactName: TaskMastery-Setup-${version}.${ext}
+  artifactName: Tazor-Setup-${version}.${ext}
   # Code signing (removes the SmartScreen "unknown publisher" warning), e.g.
   # Azure Trusted Signing - see README.md
   # azureSignOptions:
@@ -44,23 +44,23 @@ nsis:
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: true
   createStartMenuShortcut: true
-  shortcutName: TaskMastery
+  shortcutName: Tazor
 
 # Microsoft Store. Copy the three identity values from Partner Center → your
 # app → Product management → Product identity. The Store signs the package
 # and delivers updates (the app skips its own updater there).
 appx:
-  identityName: TaskMastery.PLACEHOLDER # Package/Identity/Name
-  publisher: CN=00000000-0000-0000-0000-000000000000 # Package/Identity/Publisher
-  publisherDisplayName: TaskMastery # Package/Properties/PublisherDisplayName
-  displayName: TaskMastery
-  applicationId: TaskMastery
+  identityName: solidauto.Tazor # Package/Identity/Name
+  publisher: CN=EA07AA91-53F2-4C88-9717-231C9502E6EF # Package/Identity/Publisher
+  publisherDisplayName: solidauto #Package/Properties/PublisherDisplayName
+  displayName: Tazor
+  applicationId: tazor
   backgroundColor: transparent
   languages:
     - en-US
   # No auto-start on install; tile images: assets/appx (npm run store-assets)
   addAutoLaunchExtension: false
-  artifactName: TaskMastery-Store-${version}.${ext}
+  artifactName: Tazor-Store-${version}.${ext}
 
 # macOS (build on a Mac). Signing + notarization need an Apple Developer
 # account; see README.md.
@@ -69,15 +69,15 @@ mac:
     - dmg
     - zip # electron-updater updates from the zip
   category: public.app-category.productivity
-  icon: assets/icon.png
+  icon: assets/icon-mac.png # Apple's icon grid: tile with margins
   hardenedRuntime: true
   entitlements: assets/entitlements.mac.plist
   entitlementsInherit: assets/entitlements.mac.plist
   extendInfo:
-    NSMicrophoneUsageDescription: TaskMastery uses your microphone for calls.
+    NSMicrophoneUsageDescription: Tazor uses your microphone for calls.
 
 dmg:
-  artifactName: TaskMastery-${version}.${ext}
+  artifactName: Tazor-${version}.${ext}
 
 publish:
   provider: github

@@ -1,5 +1,5 @@
 // ============================================================================
-// CONFIG - which TaskMastery server the app opens
+// CONFIG - which server the app opens
 // ============================================================================
 // app.config.json holds the production address. While developing,
 // `npm run dev` passes --url=http://localhost:3000 (or set TASKMASTERY_URL).

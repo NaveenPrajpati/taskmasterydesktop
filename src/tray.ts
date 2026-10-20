@@ -1,4 +1,4 @@
-// Tray icon (macOS: menu bar icon): closing the window keeps TaskMastery
+// Tray icon (macOS: menu bar icon): closing the window keeps Tazor
 // running here, so live notifications keep arriving. Quit from its menu.
 
 import {Menu, Tray, app, nativeImage, type MenuItemConstructorOptions} from 'electron';
@@ -20,11 +20,11 @@ export function createTray(actions: {
   quit: () => void;
 }): Tray {
   const tray = new Tray(nativeImage.createFromPath(ICON_PATH).resize({width: 16, height: 16}));
-  tray.setToolTip('TaskMastery');
+  tray.setToolTip('Tazor');
 
   const buildMenu = () => {
     const items: MenuItemConstructorOptions[] = [
-      {label: 'Open TaskMastery', click: actions.show},
+      {label: 'Open Tazor', click: actions.show},
       {type: 'separator'},
     ];
     if (actions.canAutoStart) {
@@ -45,7 +45,7 @@ export function createTray(actions: {
     if (actions.checkForUpdates) {
       items.push({label: 'Check for updates', click: actions.checkForUpdates});
     }
-    items.push({type: 'separator'}, {label: 'Quit TaskMastery', click: actions.quit});
+    items.push({type: 'separator'}, {label: 'Quit Tazor', click: actions.quit});
     return Menu.buildFromTemplate(items);
   };
 

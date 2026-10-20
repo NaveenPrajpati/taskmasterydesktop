@@ -1,5 +1,5 @@
 // ============================================================================
-// PRELOAD - window.taskmasteryDesktop for the TaskMastery site
+// PRELOAD - window.taskmasteryDesktop for our site
 // ============================================================================
 // The site checks for it (src/app/lib/desktop.ts in the web repo) to show
 // Windows notifications and skip web push, which Electron can't do.

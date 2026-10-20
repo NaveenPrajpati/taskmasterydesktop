@@ -160,7 +160,7 @@ function createMainWindow(show: boolean) {
     minWidth: 900,
     minHeight: 600,
     show: false,
-    title: 'TaskMastery',
+    title: 'Tazor',
     icon: ICON_PATH,
     backgroundColor: '#ffffff',
     autoHideMenuBar: true,
@@ -364,7 +364,7 @@ function buildAppMenu() {
     submenu: [
       {label: 'Close window', accelerator: 'CmdOrCtrl+W', click: () => mainWindow?.hide()},
       // On macOS Quit is in the app menu
-      ...(isMac ? [] : [{label: 'Quit TaskMastery', accelerator: 'Ctrl+Q', click: quit}]),
+      ...(isMac ? [] : [{label: 'Quit Tazor', accelerator: 'Ctrl+Q', click: quit}]),
     ],
   };
   return Menu.buildFromTemplate([
@@ -400,10 +400,11 @@ function buildAppMenu() {
       label: 'Help',
       submenu: [
         {label: 'Help Centre', click: () => openExternal(`${APP_URL}/help`)},
+        {label: 'Privacy Policy', click: () => openExternal(`${APP_URL}/privacy/desktop-app`)},
         ...(canSelfUpdate()
           ? [{label: 'Check for updates', click: checkForUpdates}, {type: 'separator' as const}]
           : [{type: 'separator' as const}]),
-        {label: `TaskMastery ${app.getVersion()}`, enabled: false},
+        {label: `Tazor ${app.getVersion()}`, enabled: false},
       ],
     },
   ]);

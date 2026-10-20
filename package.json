@@ -1,9 +1,9 @@
 {
   "name": "taskmastery-desktop",
-  "productName": "TaskMastery",
+  "productName": "Tazor",
   "version": "0.1.0",
-  "description": "TaskMastery for Windows",
-  "author": "TaskMastery",
+  "description": "Tazor for Windows",
+  "author": "Tazor",
   "private": true,
   "main": "dist/main.js",
   "scripts": {

@@ -16,7 +16,7 @@ const text = (value: unknown, max: number) =>
 
 export function installNotifications(getWindow: () => BrowserWindow | null, show: () => void) {
   ipcMain.on('desktop:notify', (event, payload: Record<string, unknown>) => {
-    // Only the TaskMastery site may notify
+    // Only our own site may notify
     if (!event.senderFrame || !isAppUrl(event.senderFrame.url)) return;
     if (!Notification.isSupported()) return;
 
