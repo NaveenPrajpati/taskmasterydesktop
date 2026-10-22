@@ -32,6 +32,9 @@ export function installNotifications(getWindow: () => BrowserWindow | null, show
       title,
       body: text(payload?.body, 500),
       icon: ICON_PATH,
+      // The page plays the app's own sound (alert1.wav, notificationSound.ts
+      // in the web repo), so Windows' default would double it
+      silent: true,
     });
     if (tag) byTag.set(tag, notification);
 
