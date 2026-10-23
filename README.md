@@ -42,7 +42,10 @@ runs only).
 ## Release an update
 
 Installed apps check GitHub Releases (`publish` in `electron-builder.yml`)
-on start and install updates when they quit.
+at start and every 4 hours. They download a new version on their own,
+show it in a small "Updating Tazor" card, and restart themselves to
+install it (`src/updater.ts`). To see the card without publishing anything:
+`node scripts/start-electron.js --url=http://localhost:3000 --simulate-update`.
 
 1. Create the GitHub repo named in `electron-builder.yml`. Make it public,
    or the apps can't download updates.

@@ -1,0 +1,102 @@
+:root {
+  --card: #ffffff;
+  --text: #18181b;
+  --muted: #6b6b75;
+  --border: #e4e4e7;
+  --track: #f0e7de;
+  --fill: linear-gradient(90deg, #ffd43b, #fb8c2a 55%, #ef4444);
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card: #211a14;
+    --text: #f6eee6;
+    --muted: #b4a597;
+    --border: #3a2f26;
+    --track: #3a2f26;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  font: 13px/1.4 'Segoe UI', system-ui, sans-serif;
+  color: var(--text);
+  user-select: none;
+}
+
+body {
+  padding: 4px;
+}
+
+.card {
+  height: 100%;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+.card img {
+  width: 40px;
+  height: 40px;
+  flex: none;
+}
+
+.text {
+  min-width: 0;
+  flex: 1;
+}
+
+.title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.body {
+  margin: 2px 0 0;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bar {
+  margin-top: 7px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--track);
+  overflow: hidden;
+}
+
+.bar[hidden] {
+  display: none;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--fill);
+  transition: width 0.4s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar i {
+    transition: none;
+  }
+}

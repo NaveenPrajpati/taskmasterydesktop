@@ -22,7 +22,6 @@ import {
   type MenuItemConstructorOptions,
   type WebContents,
 } from 'electron';
-import {autoUpdater} from 'electron-updater';
 import path from 'node:path';
 import {
   APP_ORIGIN,
@@ -38,6 +37,13 @@ import {findDeepLink, handleDeepLink, isGoogleSignInStart, startBrowserSignIn} f
 import {installScreenPicker} from './screen-picker';
 import {installNotifications} from './notifications';
 import {START_HIDDEN_ARG, createTray} from './tray';
+import {
+  announceUpdated,
+  checkForUpdatesNow,
+  finishedUpdate,
+  simulateUpdate,
+  startUpdater,
+} from './updater';
 import {loadWindowState, trackWindowState} from './window-state';
 
 const isMac = process.platform === 'darwin';
@@ -134,16 +140,30 @@ function start() {
   Menu.setApplicationMenu(buildAppMenu());
   createTray({
     show: showWindow,
-    checkForUpdates: canSelfUpdate() ? checkForUpdates : undefined,
+    checkForUpdates: canSelfUpdate() ? checkForUpdatesNow : undefined,
     // The Store package has no auto-start entry (addAutoLaunchExtension)
     canAutoStart: !isStore,
     quit,
   });
 
-  const startHidden = process.argv.includes(START_HIDDEN_ARG);
+  // Restarted by an update: come back the way it was (in the tray or not)
+  const updated = canSelfUpdate() ? finishedUpdate() : null;
+  const startHidden = process.argv.includes(START_HIDDEN_ARG) || !!updated?.startHidden;
   createMainWindow(!startHidden);
 
-  if (canSelfUpdate()) checkForUpdates();
+  const updaterOptions = {
+    getWindow: () => mainWindow,
+    beforeRestart: () => {
+      quitting = true;
+    },
+  };
+  if (canSelfUpdate()) {
+    startUpdater(updaterOptions);
+    if (updated) announceUpdated(updated.version, updated.startHidden);
+  } else if (process.argv.includes('--simulate-update')) {
+    // `npm run dev -- --simulate-update`: preview the update card
+    simulateUpdate(updaterOptions);
+  }
 }
 
 // ----------------------------------------------------------------------------
@@ -402,7 +422,7 @@ function buildAppMenu() {
         {label: 'Help Centre', click: () => openExternal(`${APP_URL}/help`)},
         {label: 'Privacy Policy', click: () => openExternal(`${APP_URL}/privacy/desktop-app`)},
         ...(canSelfUpdate()
-          ? [{label: 'Check for updates', click: checkForUpdates}, {type: 'separator' as const}]
+          ? [{label: 'Check for updates', click: checkForUpdatesNow}, {type: 'separator' as const}]
           : [{type: 'separator' as const}]),
         {label: `Tazor ${app.getVersion()}`, enabled: false},
       ],
@@ -411,18 +431,10 @@ function buildAppMenu() {
 }
 
 // ----------------------------------------------------------------------------
-// Updates (GitHub Releases; see electron-builder.yml → publish)
+// Updates (updater.ts; GitHub Releases, see electron-builder.yml → publish)
 // ----------------------------------------------------------------------------
 
 /** Installed builds update themselves, except from the Store (it updates them) */
 function canSelfUpdate() {
   return app.isPackaged && !isStore;
-}
-
-function checkForUpdates() {
-  // Downloads in the background and installs on the next quit, with a
-  // Windows notification when it's ready
-  autoUpdater.checkForUpdatesAndNotify().catch(error => {
-    console.error('Update check failed:', error);
-  });
 }
