@@ -20,6 +20,15 @@ const assets = {
   'LargeTile.png': [310, 310, 0.6],
 };
 
+// Taskbar, Start list and title bar icons. Without the "unplated" ones Windows
+// draws Square44x44Logo shrunk on a square of the accent color. The icon has
+// its own margins, so these fill the whole size.
+for (const size of [16, 20, 24, 30, 32, 36, 40, 48, 60, 64, 72, 80, 96, 256]) {
+  for (const variant of ['', '_altform-unplated', '_altform-lightunplated']) {
+    assets[`Square44x44Logo.targetsize-${size}${variant}.png`] = [size, size, 1];
+  }
+}
+
 for (const [name, [width, height, share]] of Object.entries(assets)) {
   const size = Math.round(height * share);
   const glyph = await sharp(icon).resize(size, size).toBuffer();
