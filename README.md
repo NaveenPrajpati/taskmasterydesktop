@@ -86,8 +86,12 @@ Runs on a Mac with the same steps (`npm install`, `npm run dev`). macOS
 builds can only be made on a Mac:
 
 ```sh
-npm run dist:mac   # release/Tazor-<version>.dmg (+ .zip for updates)
+npm run dist:mac      # release/Tazor-<version>.dmg (+ .zip for updates), universal
+npm run release:mac   # the same, uploaded to GitHub Releases (needs GH_TOKEN)
 ```
+
+Run `release` (Windows) and `release:mac` for the same version so both
+end up in one GitHub release (`latest.yml` + `latest-mac.yml`).
 
 To give it to other people, sign and notarize it, or macOS blocks it as
 "damaged / unidentified developer". This needs an Apple Developer account

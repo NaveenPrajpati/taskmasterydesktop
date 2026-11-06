@@ -2,7 +2,7 @@
   "name": "taskmastery-desktop",
   "productName": "Tazor",
   "version": "0.1.3",
-  "description": "Tazor for Windows",
+  "description": "Tazor desktop app",
   "author": "Tazor",
   "private": true,
   "main": "dist/main.js",
@@ -14,6 +14,7 @@
     "dist:store": "npm run build && electron-builder --win appx",
     "dist:mac": "npm run build && electron-builder --mac",
     "release": "npm run build && electron-builder --win nsis --publish always",
+    "release:mac": "npm run build && electron-builder --mac --publish always",
     "store-assets": "node scripts/make-store-assets.mjs"
   },
   "dependencies": {

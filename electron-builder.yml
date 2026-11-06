@@ -3,6 +3,7 @@
 #   npm run release     the same, uploaded to GitHub Releases (auto-update)
 #   npm run dist:store  Microsoft Store package → Tazor-Store-<version>.appx
 #   npm run dist:mac    macOS → .dmg + .zip (only on a Mac)
+#   npm run release:mac the same, uploaded to GitHub Releases (auto-update)
 appId: com.taskmastery.desktop
 productName: Tazor
 copyright: Copyright © 2026 Tazor
@@ -65,9 +66,12 @@ appx:
 # macOS (build on a Mac). Signing + notarization need an Apple Developer
 # account; see README.md.
 mac:
+  # universal = one build for Apple Silicon and Intel Macs
   target:
-    - dmg
-    - zip # electron-updater updates from the zip
+    - target: dmg
+      arch: [universal]
+    - target: zip # electron-updater updates from the zip
+      arch: [universal]
   category: public.app-category.productivity
   icon: assets/icon-mac.png # Apple's icon grid: tile with margins
   hardenedRuntime: true
@@ -75,6 +79,7 @@ mac:
   entitlementsInherit: assets/entitlements.mac.plist
   extendInfo:
     NSMicrophoneUsageDescription: Tazor uses your microphone for calls.
+    NSCameraUsageDescription: Tazor uses your camera for video calls.
 
 dmg:
   artifactName: Tazor-${version}.${ext}
