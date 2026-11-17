@@ -33,7 +33,7 @@ export async function startBrowserSignIn(win: BrowserWindow, url: string) {
   const verifier = crypto.randomBytes(32).toString('base64url');
   const challenge = crypto.createHash('sha256').update(verifier).digest('base64url');
   // Where the page wanted to land (an invite link, a shared task...)
-  const next = new URL(url).searchParams.get('redirect') || '/dashboard';
+  const next = new URL(url).searchParams.get('redirect') || '/dashboard/start';
   pending = {verifier, next, startedAt: Date.now()};
 
   const connect = `/desktop/connect?challenge=${challenge}`;

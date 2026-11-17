@@ -223,7 +223,8 @@ function createMainWindow(show: boolean) {
     // Without a sign-in in progress this just lands on the login page
     handleDeepLink(win, link);
   } else {
-    void win.loadURL(`${APP_URL}/dashboard`);
+    // Board when the workspace has a project, else My Tasks (web: dashboard/start)
+    void win.loadURL(`${APP_URL}/dashboard/start`);
   }
 }
 
